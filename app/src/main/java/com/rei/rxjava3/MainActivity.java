@@ -1,9 +1,6 @@
 package com.rei.rxjava3;
 
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,19 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableSource;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.functions.Supplier;
-import io.reactivex.rxjava3.observers.DisposableObserver;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.subjects.PublishSubject;
-
 public class MainActivity extends AppCompatActivity implements MainPresenter.View {
-    private Button debounce;
+    private Button submit;
     String TAG = "MAIN";
     private TextView editText;
     private SearchView searchView;
@@ -34,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        debounce = findViewById(R.id.debounce);
+        submit = findViewById(R.id.debounce);
         editText = findViewById(R.id.editText);
         searchView = findViewById(R.id.searchView);
         presenter = new MainPresenter(this);
@@ -52,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
                 return false;
             }
         });
-        debounce.setOnClickListener(view -> {
+        submit.setOnClickListener(view -> {
             presenter.submitAction("tes");
         });
     }
