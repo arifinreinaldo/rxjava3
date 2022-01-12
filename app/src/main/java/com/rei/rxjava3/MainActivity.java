@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         submit = findViewById(R.id.debounce);
         editText = findViewById(R.id.editText);
         searchView = findViewById(R.id.searchView);
-        presenter = new MainPresenter(this);
-
+        presenter = new MainPresenter(this, ((MainApplication) this.getApplication()).getRepo());
         searchView.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
             }
         });
         submit.setOnClickListener(view -> {
-            presenter.submitAction("tes");
+            presenter.submitAction(searchView.getQuery().toString());
         });
     }
 
@@ -63,5 +62,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     public void hideLoading() {
 
         Toast.makeText(getBaseContext(), "Done Loading", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showError(String msg) {
+        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
